@@ -108,7 +108,11 @@ namespace Programming_Assignment_2_Summer_2021
         {
             try
             {
-                //write your code here.
+           var Intersection1 = nums2.Intersect(nums2);//get the intersection - meaning only the numbers which are present in both
+            foreach(int  x in Intersection1)
+            {
+                Console.WriteLine(x);//print them
+            }
             }
             catch (Exception)
             {
@@ -139,10 +143,29 @@ namespace Programming_Assignment_2_Summer_2021
         {
             try
             {
-                //Write your Code here.
-                return -1;
+                int min = 0;
+                int max = nums.Length - 1;//maximum length of the array
+                while (min <= max)
+                {
+                    int mid = (min + max) / 2;//mid point of array and then it chages accordingly
+                                              //Console.WriteLine("my mid is " + mid);
+                    if (target == nums[mid])//initial target
+                    {
+                        return ++mid;//return index on mid with length 1
+                    }
+                    else if (target < nums[mid])//return second mid
+                    {
+                        max = mid - 1;
+                    }
+                    else
+                    {
+                        min = mid + 1;
+                    }
+
+                }
+                return max + 1;//if nothing element is not present search the index adn add one
             }
-            catch(Exception)
+            catch
             {
                 throw;
             }
@@ -163,8 +186,55 @@ namespace Programming_Assignment_2_Summer_2021
         {
             try
             {
-                //write your code here.
-                return -1;
+               List<int> SortingLucky= new List<int>();
+            var myarray = nums.Distinct().ToArray();//get the distinct ones in another array
+            int luckycount = 0;//initial count is zero
+            Dictionary<int, int> dict = new Dictionary<int, int>();//new dicitionary
+
+            foreach (var c in myarray)//take my array and iterate through distinct ones
+            {
+
+                foreach (var inside in nums)//inside this iterate in all the numbers in num
+                {
+
+                    if (inside == c)//if numbers are equal then increment lucky count
+                    {
+                        luckycount++;
+                    }
+
+                }
+
+                dict.Add(c, luckycount);//add the count in the dictionary
+                luckycount = 0;//then lucky count  =0
+            }
+          
+
+
+            foreach(var l in dict)//iterate in dictionary
+            {
+                if(l.Key == l.Value)//if key and value are equal then we got our lucky number
+                {
+                    SortingLucky.Add(l.Key);//sort it
+                   
+                    
+                    
+                }
+            }
+
+
+            SortingLucky.Sort();//sort it accordingly
+
+
+
+            if (SortingLucky.Count != 0)
+            {
+                return SortingLucky[SortingLucky.Count - 1];//return the index
+            }
+            else
+            {
+                return -1;//if nothing is there then return  -1 
+            }
+
             }
             catch (Exception)
             {
@@ -199,14 +269,28 @@ namespace Programming_Assignment_2_Summer_2021
         /// </summary>
         private static int  GenerateNums(int n)
         {
-            try
-            {
-                //write your code here.
-                return -1;
-            }
-            catch (Exception)
-            {
+            try {
+                var myarray = new int[n+1];//CREATE A NEW ARRAY OF LENGTH  n+1
+                myarray[0] = 0;//initial is zero
+                myarray[1] = 1;//first one is 1 
+                for (int i = 1; i < n+1; i++)//start iteration
+                {
+                    if ((i * 2) + 1 >= n+1 || i * 2 >= n+1)
+                    {
+                        break;//if the value exceeds then break
+                    }
+                    myarray[i * 2] = myarray[i];//then code the rule in this
+                    myarray[(i * 2) + 1] = myarray[i] + myarray[i + 1];//second rule
 
+                   
+
+                }
+                Array.Sort(myarray);//sort the array
+                return myarray[n];//return the last one  
+
+            }
+            catch
+            {
                 throw;
             }
 
@@ -221,13 +305,30 @@ namespace Programming_Assignment_2_Summer_2021
         //Output: "Sao Paulo" 
         //Explanation: Starting at "London" city you will reach "Sao Paulo" city which is the destination city.Your trip consist of: "London" -> "New York" -> "Lima" -> "Sao Paulo".
         /// </summary>
-        public static string DestCity(List<List<string>> paths)
+       public static string DestCity(List<List<string>> paths)
         {
             try
             {
-                //write your code here.
-                return "";
+                List<string> Citylist = new List<string>();//create a new list 
+
+                foreach (var path in paths)//for every city in the list iterate the path
+                {
+                    Citylist.Add(path[1]);//add it to the path
+                }
+
+                foreach (var path in paths)
+                {
+                    if (Citylist.Contains(path[0]))//if it contains the city which is already in then find it
+                    {
+                        Citylist.Remove(path[0]);//then remove it
+                    }
+
+                }
+
+                return Citylist.Last();//return the final city
+
             }
+
             catch (Exception)
             {
 
@@ -246,11 +347,25 @@ namespace Programming_Assignment_2_Summer_2021
         //Explanation: The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.
 
         /// </summary>
-        private static void targetSum(int[] nums,int target)
+        private static void targetSum(int[] nums, int target)
         {
             try
             {
-                //write your code here.
+                for (int i = 0; i < nums.Length; i++)//take the first array
+                {
+
+                    for (int j = i + 1; j < nums.Length; j++)//then compare it with all the elements next
+                    {
+
+                        if (nums[j] == target - nums[i])//after the subtraction find the answer
+                        {
+
+                           
+                            Console.WriteLine("{0} {1}", 1 + Array.IndexOf(nums, nums[i]), Array.IndexOf(nums, nums[j]) + 1);//then print the index of all the numbers
+
+                        }
+                    }
+                }
 
             }
             catch (Exception)
@@ -285,7 +400,44 @@ namespace Programming_Assignment_2_Summer_2021
         {
             try
             {
-                //write your code here.
+                Dictionary<int, List<int>> MyDict = new Dictionary<int, List<int>>();//create a dictionary 
+                var scoresOfIds = new List<int>();//a list for scores
+                //Console.WriteLine(items.Length);
+                for (int i = 0; i < items.Length / 2; i++)//iterate through array
+                {
+                    //Console.WriteLine("{"+items[i,0]+","+items[i,1]+"}");
+                    //Console.WriteLine(i);
+                    if (!MyDict.ContainsKey(items[i, 0]))//if no key then add, if there is key go to else
+                    {
+                        //Console.WriteLine(items[i,0]);
+                        scoresOfIds = new List<int>();//create a new list for scores for the first time
+                        MyDict.Add(items[i, 0], scoresOfIds);//then add the values
+                    }
+                    else
+                    {
+                        scoresOfIds = MyDict[items[i, 0]];//if it already exists then indicate this as the list
+                    }
+                    scoresOfIds.Add(items[i, 1]);//add the scores
+                    MyDict[items[i, 0]] = scoresOfIds;//add it to dictionary
+                }
+
+
+                foreach (var IdScore in MyDict)//iterate through dictionary
+                {
+                    int Id_Student = IdScore.Key;//take the key
+                    List<int> Score_Value = IdScore.Value;//get the values of the list
+                    Score_Value.Sort();//sort it
+                    Score_Value.Reverse();//descending sort
+                    int sum = 0;//initial sum is zero
+                    for (int i = 0; i < 5; i++)
+                    {
+                        //Console.WriteLine(value[i]);
+                        sum = sum + Score_Value[i];//add the top 5 scores
+                    }
+
+                    Console.WriteLine("[" + Id_Student + "," + sum / 5 + "]");//print them
+                }
+
 
             }
             catch (Exception)
@@ -314,12 +466,29 @@ namespace Programming_Assignment_2_Summer_2021
         //rotate 2 steps to the right: [3,99,-1,-100]
         /// </summary>
 
-        private static void RotateArray(int[] arr,int n)
+       private static void RotateArray(int[] arr, int k)
         {
             try
             {
-                //write your code here.
-           
+                int n = arr.Length;//take the length of the array
+                k = k % n;//get the reminder to rotate the array
+
+                for (int i = 0; i < n; i++)
+                {
+                    if (i < k)//if rotation is less then k
+                    {
+
+                        // Printing right elements according to i
+
+                        Console.Write(arr[n + i - k] + " ");//print all the elements after the i
+                    }
+                    else
+                    {
+                        // 'k' elements
+                        Console.Write(arr[i - k] + " ");//all of them before it
+                    }
+                }
+
             }
             catch (Exception)
             {
@@ -343,12 +512,23 @@ namespace Programming_Assignment_2_Summer_2021
         //Output: 23
         /// </summary>
 
-        private static int MaximumSum(int[] arr)
+        private static int MaximumSum(int[] arr9)
         {
             try
             {
-                //write your code here.
-                return 0;
+                int MaximumoftheArray = arr9[0];//take the maximum of teh array and assign it to the first element
+                int CurrentMaximum = arr9[0];//take the current maximum and assign it to the first element
+
+                for (int i = 1; i < arr9.Length; i++)//iterate it through loop
+                {
+
+                    CurrentMaximum = Math.Max(arr9[i], CurrentMaximum + arr9[i]);//assignment of teh current maximum comparing all the elements
+                    MaximumoftheArray = Math.Max(MaximumoftheArray, CurrentMaximum);//checking wirh the current maximum and the first element and loop prodeeds accordingly
+
+                }
+
+                return MaximumoftheArray;
+
             }
             catch (Exception)
             {
@@ -373,8 +553,19 @@ namespace Programming_Assignment_2_Summer_2021
         {
             try
             {
-                //write your code here.
-                return 0;
+
+                int[] minimumCostToTop = new int[costs.Length + 1];//create a new array with one length grater than the normal array, to reach the last position
+
+
+                for (int i = 2; i < minimumCostToTop.Length; i++)//check for the elements and then iterate through the array
+                {
+                    int one_Step = minimumCostToTop[i - 1] + costs[i - 1];//cost for one step
+                    int Two_Steps = minimumCostToTop[i - 2] + costs[i - 2];//cost for 2 steps
+                    minimumCostToTop[i] = Math.Min(one_Step, Two_Steps);//the get the minimum of the steps
+                }
+
+
+                return minimumCostToTop[minimumCostToTop.Length - 1];//the final element reaches to the top and then we get the cost.
 
             }
             catch (Exception)
@@ -383,5 +574,3 @@ namespace Programming_Assignment_2_Summer_2021
                 throw;
             }
         }
-    }
-}
