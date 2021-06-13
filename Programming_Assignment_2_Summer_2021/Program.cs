@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,14 +20,14 @@ namespace Programming_Assignment_2_Summer_2021
             int[] nums = { 0, 1, 0, 3, 12 };
             Console.WriteLine("Enter the target number:");
             int target = Int32.Parse(Console.ReadLine());
-            int pos=SearchInsert(nums,target);
+            int pos = SearchInsert(nums, target);
             Console.WriteLine("Insert Position of the target is : {0}", pos);
             Console.WriteLine("");
 
             //Question3
             Console.WriteLine("Question 3");
             int[] ar3 = { 1, 2, 3, 1, 1, 3 };
-            int Lnum=LuckyNumber(ar3);
+            int Lnum = LuckyNumber(ar3);
             if (Lnum == -1)
                 Console.WriteLine("Given Array doesn't have any lucky Integer");
             else
@@ -78,15 +78,15 @@ namespace Programming_Assignment_2_Summer_2021
 
             //Question 9
             Console.WriteLine("Question 9");
-            int[] arr9 = { 7, 1, 5, 3, 6, 4 };
+            int[] arr9 = { 5,4,-1,7,8};
             int Ms = MaximumSum(arr9);
-            Console.WriteLine("Maximun Sum contiguous subarray {0}", Ma);   
+            Console.WriteLine("Maximun Sum contiguous subarray {0}", Ms);
             Console.WriteLine();
 
             //Question 10
             Console.WriteLine("Question 10");
             int[] costs = { 10, 15, 20 };
-            int minCost=MinCostToClimb(costs);
+            int minCost = MinCostToClimb(costs);
             Console.WriteLine("Minium cost to climb the top stair {0}", minCost);
             Console.WriteLine();
         }
@@ -108,11 +108,11 @@ namespace Programming_Assignment_2_Summer_2021
         {
             try
             {
-           var Intersection1 = nums2.Intersect(nums2);//get the intersection - meaning only the numbers which are present in both
-            foreach(int  x in Intersection1)
-            {
-                Console.WriteLine(x);//print them
-            }
+                var Intersection1 = nums2.Intersect(nums2);//get the intersection - meaning only the numbers which are present in both
+                foreach (int x in Intersection1)
+                {
+                    Console.WriteLine(x);//print them
+                }
             }
             catch (Exception)
             {
@@ -186,54 +186,54 @@ namespace Programming_Assignment_2_Summer_2021
         {
             try
             {
-               List<int> SortingLucky= new List<int>();
-            var myarray = nums.Distinct().ToArray();//get the distinct ones in another array
-            int luckycount = 0;//initial count is zero
-            Dictionary<int, int> dict = new Dictionary<int, int>();//new dicitionary
+                List<int> SortingLucky = new List<int>();
+                var myarray = nums.Distinct().ToArray();//get the distinct ones in another array
+                int luckycount = 0;//initial count is zero
+                Dictionary<int, int> dict = new Dictionary<int, int>();//new dicitionary
 
-            foreach (var c in myarray)//take my array and iterate through distinct ones
-            {
-
-                foreach (var inside in nums)//inside this iterate in all the numbers in num
+                foreach (var c in myarray)//take my array and iterate through distinct ones
                 {
 
-                    if (inside == c)//if numbers are equal then increment lucky count
+                    foreach (var inside in nums)//inside this iterate in all the numbers in num
                     {
-                        luckycount++;
+
+                        if (inside == c)//if numbers are equal then increment lucky count
+                        {
+                            luckycount++;
+                        }
+
                     }
 
+                    dict.Add(c, luckycount);//add the count in the dictionary
+                    luckycount = 0;//then lucky count  =0
                 }
 
-                dict.Add(c, luckycount);//add the count in the dictionary
-                luckycount = 0;//then lucky count  =0
-            }
-          
 
 
-            foreach(var l in dict)//iterate in dictionary
-            {
-                if(l.Key == l.Value)//if key and value are equal then we got our lucky number
+                foreach (var l in dict)//iterate in dictionary
                 {
-                    SortingLucky.Add(l.Key);//sort it
-                   
-                    
-                    
+                    if (l.Key == l.Value)//if key and value are equal then we got our lucky number
+                    {
+                        SortingLucky.Add(l.Key);//sort it
+
+
+
+                    }
                 }
-            }
 
 
-            SortingLucky.Sort();//sort it accordingly
+                SortingLucky.Sort();//sort it accordingly
 
 
 
-            if (SortingLucky.Count != 0)
-            {
-                return SortingLucky[SortingLucky.Count - 1];//return the index
-            }
-            else
-            {
-                return -1;//if nothing is there then return  -1 
-            }
+                if (SortingLucky.Count != 0)
+                {
+                    return SortingLucky[SortingLucky.Count - 1];//return the index
+                }
+                else
+                {
+                    return -1;//if nothing is there then return  -1 
+                }
 
             }
             catch (Exception)
@@ -250,7 +250,7 @@ namespace Programming_Assignment_2_Summer_2021
         //•	nums[1] = 1
         //•	nums[2 * i] = nums[i]  when 2 <= 2 * i <= n
         //•	nums[2 * i + 1] = nums[i] + nums[i + 1] when 2 <= 2 * i + 1 <= n
-       // Return the maximum integer in the array nums.
+        // Return the maximum integer in the array nums.
 
         //Example 1:
         //Input: n = 7
@@ -267,22 +267,23 @@ namespace Programming_Assignment_2_Summer_2021
         //Hence, nums = [0, 1, 1, 2, 1, 3, 2, 3], and the maximum is 3.
 
         /// </summary>
-        private static int  GenerateNums(int n)
+        private static int GenerateNums(int n)
         {
-            try {
-                var myarray = new int[n+1];//CREATE A NEW ARRAY OF LENGTH  n+1
+            try
+            {
+                var myarray = new int[n + 1];//CREATE A NEW ARRAY OF LENGTH  n+1
                 myarray[0] = 0;//initial is zero
                 myarray[1] = 1;//first one is 1 
-                for (int i = 1; i < n+1; i++)//start iteration
+                for (int i = 1; i < n + 1; i++)//start iteration
                 {
-                    if ((i * 2) + 1 >= n+1 || i * 2 >= n+1)
+                    if ((i * 2) + 1 >= n + 1 || i * 2 >= n + 1)
                     {
                         break;//if the value exceeds then break
                     }
                     myarray[i * 2] = myarray[i];//then code the rule in this
                     myarray[(i * 2) + 1] = myarray[i] + myarray[i + 1];//second rule
 
-                   
+
 
                 }
                 Array.Sort(myarray);//sort the array
@@ -305,7 +306,7 @@ namespace Programming_Assignment_2_Summer_2021
         //Output: "Sao Paulo" 
         //Explanation: Starting at "London" city you will reach "Sao Paulo" city which is the destination city.Your trip consist of: "London" -> "New York" -> "Lima" -> "Sao Paulo".
         /// </summary>
-       public static string DestCity(List<List<string>> paths)
+        public static string DestCity(List<List<string>> paths)
         {
             try
             {
@@ -360,7 +361,7 @@ namespace Programming_Assignment_2_Summer_2021
                         if (nums[j] == target - nums[i])//after the subtraction find the answer
                         {
 
-                           
+
                             Console.WriteLine("{0} {1}", 1 + Array.IndexOf(nums, nums[i]), Array.IndexOf(nums, nums[j]) + 1);//then print the index of all the numbers
 
                         }
@@ -466,7 +467,7 @@ namespace Programming_Assignment_2_Summer_2021
         //rotate 2 steps to the right: [3,99,-1,-100]
         /// </summary>
 
-       private static void RotateArray(int[] arr, int k)
+        private static void RotateArray(int[] arr, int k)
         {
             try
             {
@@ -507,8 +508,8 @@ namespace Programming_Assignment_2_Summer_2021
         //Example 2:
         //Input: nums = [1]
         //Output: 1
-       // Example 3:
-       // Input: nums = [5,4,-1,7,8]
+        // Example 3:
+        // Input: nums = [5,4,-1,7,8]
         //Output: 23
         /// </summary>
 
@@ -574,3 +575,5 @@ namespace Programming_Assignment_2_Summer_2021
                 throw;
             }
         }
+    }
+}
